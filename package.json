@@ -18,5 +18,10 @@
   "license": "MIT",
   "dependencies": {
     "pegjs": "~0.7.0"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/nasser/---/issues"
+  },
+  "homepage": "https://github.com/nasser/---#readme",
+  "devDependencies": {}
 }
