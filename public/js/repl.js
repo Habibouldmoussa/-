@@ -1,5 +1,5 @@
-function arabize (str) {
-  if(typeof str == 'number') {
+function arabize(str) {
+  if (typeof str == 'number') {
     return str.toString().
       replace(/1/g, "١").
       replace(/2/g, "٢").
@@ -12,14 +12,14 @@ function arabize (str) {
       replace(/9/g, "٩").
       replace(/0/g, "٠").
       replace(/\./g, "،");
-  } else if(str === true) {
+  } else if (str === true) {
     return "صح";
 
-  } else if(str === false) {
+  } else if (str === false) {
     return "خطأ";
 
-  } else if(str instanceof Array) {
-    return str.map(function(e) { return arabize(e) }).toString().replace(/,/g, " ");
+  } else if (str instanceof Array) {
+    return str.map(function (e) { return arabize(e) }).toString().replace(/,/g, " ");
 
   } else {
     return str;
@@ -27,21 +27,21 @@ function arabize (str) {
 }
 
 // Instantiate the console widget.
-var jqconsole = $('#console').jqconsole('', '>>> ');
+var jqconsole = $('#console').jqconsole('', '<<<');
 jqconsole.RegisterMatching('(', ')', 'parans');
-jqconsole.RegisterShortcut('C', function() {
+jqconsole.RegisterShortcut('C', function () {
   this.AbortPrompt();
   startPrompt();
-}); 
-jqconsole.RegisterShortcut('A', function() {
+});
+jqconsole.RegisterShortcut('A', function () {
   this.MoveToStart();
-}); 
-jqconsole.RegisterShortcut('E', function() {
+});
+jqconsole.RegisterShortcut('E', function () {
   this.MoveToEnd();
 });
 
 // Starts a REPL prompt.
-function startPrompt () {
+function startPrompt() {
   jqconsole.Prompt(true, function (str) {
     // Main Enter callback.
     str = str.trim();
@@ -102,7 +102,7 @@ var interpreter = {
 // Worker message router.
 worker.onmessage = function (event) {
   var type = event.data.type,
-      data = event.data.data;
+    data = event.data.data;
   if (interpreter[type]) {
     interpreter[type](data);
   }
@@ -116,7 +116,7 @@ $(document).on('click', 'a.execute', function () {
 
 $(document).on('click', 'a.load', function () {
   var url = this.href.match(/#(.*)/)[1];
-  $.get("/lib/" + url + ".qlb", function(code) {
+  $.get("/lib/" + url + ".qlb", function (code) {
     jqconsole.SetPromptText(code);
   });
 });
@@ -130,8 +130,8 @@ function hl() {
   $(".jqconsole-old-prompt")
     // .add($(".jqconsole-prompt > span").eq(0))
     // .add($(".jqconsole-prompt .jqconsole-cursor").prev())
-    .each(function(i, e) {
-      Rainbow.color(this.innerText, "qlb", function(c) { $(e).html(c) } )
+    .each(function (i, e) {
+      Rainbow.color(this.innerText, "qlb", function (c) { $(e).html(c) })
     });
 }
 
